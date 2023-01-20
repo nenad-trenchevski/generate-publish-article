@@ -5,13 +5,18 @@ const getBestKeyword = require("./functions/getBestKeyword");
 const getTargetAudience = require("./functions/getTargetAudience");
 const generateArticle = require("./functions/generateArticle");
 const publishArticle = require("./functions/publishArticle");
+const cors = require('cors');
 
+
+app.use(cors({ origin: 'http://localhost:3001' }));
 // Body parser middleware
 app.use(bodyParser.json());
 
+
 app.post("/generate-and-publish-article", async (req, res) => {
-  const topic = req.body.topic;
-  const category = req.body.category;
+  const { topic, category, website } = req.body;
+  console.log(topic, category, website);
+  return;
   const bestKeyword = await getBestKeyword(topic);
   const targetAudience = await getTargetAudience(topic);
   const article = await generateArticle(bestKeyword, topic, targetAudience);
