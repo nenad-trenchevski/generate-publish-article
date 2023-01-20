@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.post("/generate-and-publish-article", async (req, res) => {
   const { topic, category, website } = req.body;
   console.log(topic, category, website);
-  return;
   const bestKeyword = await getBestKeyword(topic);
   const targetAudience = await getTargetAudience(topic);
   const article = await generateArticle(bestKeyword, topic, targetAudience);
