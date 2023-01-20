@@ -1,7 +1,9 @@
+const axios = require("axios");
+
 async function getBestKeyword(topic) {
-    const keywords = await getKeywords(topic);
-    const scores = calculateKeywordScore(keywords);
-    return scores[0].keyword;
+  const keywords = await getKeywords(topic);
+  const scores = calculateKeywordScore(keywords);
+  return scores[0].keyword;
 }
 
 async function getKeywords(topic) {
@@ -9,8 +11,8 @@ async function getKeywords(topic) {
   const url = `https://api.ahrefs.com/keywords/search?request_query=topic%3A${topic}&output=json&target=organic&mode=exact&sort_by=volume_desc&limit=50&access_token=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const response = await axios.get(url);
+    const data = response.data;
     const keywords = data.keywords;
 
     // Get additional data for each keyword
@@ -62,9 +64,8 @@ async function getKeywordDifficulty(keyword) {
   const url = `https://api.ahrefs.com/keywords/difficulty?request_query=${keyword}&output=json&access_token=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.difficulty;
+    const response = await axios.get(url);
+    return response.data.difficulty;
   } catch (error) {
     console.log(error);
   }
@@ -75,8 +76,8 @@ async function getTopPages(keyword) {
   const url = `https://api.ahrefs.com/top_pages/by_keyword?request_query=${keyword}&output=json&access_token=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const response = await axios.get(url);
+    const data = response.data;
     return data.pages;
   } catch (error) {
     console.log(error);
@@ -88,8 +89,7 @@ async function getContentExplorer(keyword) {
   const url = `https://api.ahrefs.com/content_explorer/search?request_query=${keyword}&output=json&access_token=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const { data } = await axios.get(url);
     return data.posts;
   } catch (error) {
     console.log(error);
@@ -101,15 +101,13 @@ async function getOrganicSearch(keyword) {
   const url = `https://api.ahrefs.com/organic_search/overview?request_query=${keyword}&output=json&access_token=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.organic_search;
+    const response = await axios.get(url);
+    return response.data.organic_search;
   } catch (error) {
     console.log(error);
   }
 }
 
-
 module.exports = {
-  getBestKeyword
-}
+  getBestKeyword,
+};
