@@ -35,12 +35,11 @@ async function publishArticle(title, content, category) {
         "Content-Type": "application/json",
         "Authorization": "Bearer YOUR_JWT_TOKEN"
     };
-    const response = await fetch(url, { method: "POST", headers, body: JSON.stringify(data) });
-    const json = await response.json();
-    if (json.id) {
-        console.log(`Post successfully published with ID: ${json.id}`);
+    const response = await axios.post(url, data, { headers });
+    if (response.data.id) {
+        console.log(`Post successfully published with ID: ${response.data.id}`);
     } else {
-        console.log(`An error occurred: ${json.message}`);
+        console.log(`An error occurred: ${response.data.message}`);
     }
 }
 
