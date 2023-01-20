@@ -20,6 +20,10 @@ async function generateArticle(bestKeyword, topic, targetAudience) {
     return articleContent;
 }
 
+module.exports = {
+    generateArticle
+}
+
 
 // export async function generateArticle(bestKeyword, topic) {
 //     openai.apiKey = "PUT_YOUR_API_KEY_HERE";

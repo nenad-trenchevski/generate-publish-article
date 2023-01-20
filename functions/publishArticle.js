@@ -43,3 +43,7 @@ async function publishArticle(title, content, category) {
         console.log(`An error occurred: ${json.message}`);
     }
 }
+
+module.exports = {
+    publishArticle
+}

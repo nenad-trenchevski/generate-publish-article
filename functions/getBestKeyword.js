@@ -1,4 +1,4 @@
-export async function getBestKeyword(topic) {
+async function getBestKeyword(topic) {
     const keywords = await getKeywords(topic);
     const scores = calculateKeywordScore(keywords);
     return scores[0].keyword;
@@ -107,4 +107,9 @@ async function getOrganicSearch(keyword) {
   } catch (error) {
     console.log(error);
   }
+}
+
+
+module.exports = {
+  getBestKeyword
 }

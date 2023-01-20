@@ -1,4 +1,4 @@
-export async function getTargetAudience(topic) {
+async function getTargetAudience(topic) {
     // Your Ahrefs API key
     const apiKey = "YOUR_API_KEY";
     // The base URL for the Ahrefs API
@@ -27,4 +27,8 @@ export async function getTargetAudience(topic) {
     // Extract the target audience data
     const targetAudience = json.data.audience;
     return targetAudience;
+}
+
+module.exports = {
+    getTargetAudience
 }
